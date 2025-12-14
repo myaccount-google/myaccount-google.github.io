@@ -91,3 +91,11 @@ margin-left:10px;
 text-indent:10px;
 
 }
+
+.erro{
+
+color:red;
+font-weight:bold;
+display:none;
+transition:2s;
+}
